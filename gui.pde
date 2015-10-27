@@ -11,3 +11,15 @@ void keyPressed() {
   if(key=='c') {compose(to,so,te,se); addBeat();} // creates a phrase from the diagonal
   if(key=='Q') {stop(); exit();}
  }
+ 
+ 
+ 
+void mouseDragged(){
+
+  pt mouse = Mouse();
+  musicCurve.setPt1(mouse);
+  musicCurve.setPt2(mouse);
+  musicCurve.setPt3(mouse);
+  musicCurve.setPt4(mouse);
+  
+}

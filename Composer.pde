@@ -13,6 +13,9 @@
 //     edit function 'compose' in tab 'phrase'
 //*****************************************************************************
 
+
+MusicCurve musicCurve;
+
 void setup() {             
    size(1200, 1200);         
    smooth();  strokeJoin(ROUND); strokeCap(ROUND); 
@@ -21,6 +24,8 @@ void setup() {
    initSongChart(); // inits measures for drawing the music sheet
    initSong();      // inits the phrase with one from Jobin's "Desafinado"
 //   addBeat();       // adds a very bad beat over that song
+
+  musicCurve = new MusicCurve(P(100, 300), P(200, 100), P(300, 400), P(400, 250));
    } 
  
 void draw() {   
@@ -30,11 +35,14 @@ void draw() {
   if(keyPressed&&key=='1') {to+=(float)(mouseX-pmouseX)/dx; so-=(float)(mouseY-pmouseY)/dy;}
   if(keyPressed&&key=='2') {te+=(float)(mouseX-pmouseX)/dx; se-=(float)(mouseY-pmouseY)/dy;}
   fill(0); text("to="+nf(to,1,2)+", so="+nf(so,1,2)+", te="+nf(te,1,2)+", se="+nf(se,1,2),width-300,height-100); // for precise aligment
-  showLine(); // shows the orange diagonal
+
   
   if(playing) {playFrameCounter++; drawTimeLine();} // advances the red vertical timeline
   
   drawSong(); // draws the sheet with notes
+  
+  musicCurve.drawCurve();
+
 
   if(playing && recording) saveRecording(); // stops recording and sets playing = false when totalDuration is exceeded
 

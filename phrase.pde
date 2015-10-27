@@ -22,5 +22,5 @@ void compose(float t0, float s0, float t1, float s1) {
     println("t0="+nf(t0,1,2)+", s0="+nf(s0,1,2)+", t1="+nf(t1,1,2)+", s1="+nf(s1,1,2));
     println("dt="+nf(dt,1,2)+", ds="+nf(ds,1,2));
 
-  }
+}
   

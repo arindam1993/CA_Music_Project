@@ -18,6 +18,27 @@ void appendSilence(float d) {S[n]=SILENCE; T[n]=songLength; D[n]=d/tm; n++; song
 // use this to add notes in any order
 void addNote(float s, float t, float d) {S[n]=s; T[n]=t/tm; D[n]=d/tm; n++; songLength=max(songLength,(t+d)/tm); }
 
+//Extends the previous note if this note is same as previous one
+void addNoteWithExtend(float s, float t, float d) {
+  
+  //Just add first note
+  if( n == 0){ addNote(s,t,d); return;}
+  //If same note, extend previous
+  if( S[n-1] == s ){
+    D[n-1]+=d/tm;
+  }else{
+    addNote(s,t,d); 
+  }
+}
+
+void clearNotes(){
+  T = new float[nn];
+  D = new float[nn];
+  S = new float[nn];
+  
+  n=0;
+  totalDuration=0;
+}
 
 // to make a song
 void initSong() { // from Jobim's Desafinado
@@ -36,6 +57,7 @@ void initSong() { // from Jobim's Desafinado
   appendNote(5,3);
   appendNote(1,1);
   appendNote(1,12);
+
   }
 
 // to add a beat to the current song
@@ -60,7 +82,7 @@ void drawSong(){  // draws th emusic sheet
    for(int i=0; i<n; i++) drawNote(S[i],T[i],D[i]); 
    
    strokeWeight(1); stroke(0); for(float i=0; i<20; i+=1./tm) line(x0+i*dx,0,x0+i*dx,dy*36);
-   strokeWeight(3); stroke(0); for(float i=0; i<20; i+=1.) line(x0+i*dx,0,x0+i*dx,dy*36);
+//   strokeWeight(3); stroke(0); for(float i=0; i<20; i+=1.) line(x0+i*dx,0,x0+i*dx,dy*36);
    }
    
 void drawNote(float s, float t, float d) {if(s!=SILENCE) rect(x0+t*dx+2,y0-s*dy-3,d*dx-4,-dy+6);}  
@@ -72,3 +94,5 @@ void drawTimeLine(){
   float t=(-5.+playFrameCounter)/30; // -5 corrects for delay in frames before starting the song
   line(x0+t*dx,0,x0+t*dx,dy*36);
   }
+  
+
