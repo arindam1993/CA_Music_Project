@@ -21,5 +21,7 @@ void mouseDragged(){
   musicCurve.setPt2(mouse);
   musicCurve.setPt3(mouse);
   musicCurve.setPt4(mouse);
-  
+  musicCurve.setPt5(mouse);
+  musicCurve.setPt6(mouse);
+  musicCurve.setPt7(mouse);
 }

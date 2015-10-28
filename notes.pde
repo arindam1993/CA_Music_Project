@@ -25,7 +25,6 @@ void addNote(float s, float t, float d) {
   if (n==0)
   {
     xStart = (t+d)/tm - (1.0 / tm);
-    println("X: " + xStart);
   }
   songLength+=d/tm;
   n++;
@@ -76,7 +75,6 @@ void initSong() { // from Jobim's Desafinado
 
 // to add a beat to the current song
 void addBeat() {  // to call AFTER initiSong or compose because it uses songLength that is set by these
-  println(songLength);
   if (!hasBeat)
   {
     hasBeat = true;
