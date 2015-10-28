@@ -135,6 +135,7 @@ public class MusicCurve{
   
   public void curveChanged(){
     hasBeat = false;
+    timeElapsed = 0;
     calcInterps();
     
     clearNotes();
@@ -151,8 +152,8 @@ public class MusicCurve{
       if (!S2 && !S3 && !S4 && !S5 && !S6 && !S7)
       {
         S1 = true;
-        controlPt1 = P;
-        controlPt7.x = controlPt4.x + 0.5*(controlPt4.x - controlPt1.x);
+        controlPt1.y = P.y;
+        //controlPt7.x = controlPt4.x + 1.0*(controlPt4.x - controlPt1.x);
         controlPt7.y = P.y;
         curveChanged();
       }
@@ -167,7 +168,7 @@ public class MusicCurve{
          S2 = true;
          controlPt2 = P;
          curveChanged();
-         controlPt6.x = controlPt4.x + 0.5*(controlPt4.x - controlPt2.x);
+         controlPt6.x = controlPt4.x + 1.0*(controlPt4.x - controlPt2.x);
          controlPt6.y = controlPt4.y + 0.5*(controlPt4.y - controlPt2.y);
        }
      }
@@ -180,7 +181,7 @@ public class MusicCurve{
        {
          S3 = true;
          controlPt3 = P;
-         controlPt5.x = controlPt4.x + 0.5*(controlPt4.x - controlPt3.x);
+         controlPt5.x = controlPt4.x + 1.0*(controlPt4.x - controlPt3.x);
          controlPt5.y = controlPt4.y + 0.5*(controlPt4.y - controlPt3.y);
          curveChanged();
        }
@@ -202,7 +203,7 @@ public class MusicCurve{
   public void setPt5(pt P){
     if( d(P, controlPt5) < CLICK_DISTANCE)
     {
-      if (!S1 && !S2 && !S3 && !S4 && !S6 && !S7)
+      if (!S1 && !S2 && !S3 && !S4 && !S6 && !S7 && false)
       {
         S5 = true;
         controlPt5 = P;
@@ -214,7 +215,7 @@ public class MusicCurve{
   public void setPt6(pt P){
     if( d(P, controlPt6) < CLICK_DISTANCE)
     {
-      if (!S1 && !S2 && !S3 && !S4 && !S5 && !S7)
+      if (!S1 && !S2 && !S3 && !S4 && !S5 && !S7 && false)
       {
         S6 = true;
         controlPt6 = P;
@@ -226,7 +227,7 @@ public class MusicCurve{
   public void setPt7(pt P){
      if( d(P, controlPt7) < CLICK_DISTANCE)
      {
-       if (!S1 && !S2 && !S3 && !S4 && !S5 && !S6)
+       if (!S1 && !S2 && !S3 && !S4 && !S5 && !S6 && false)
        {
          S7 = true;
          controlPt7 = P;

@@ -7,10 +7,10 @@ AudioRecorder recorder;
 float F00=220; // base frequency. Use F00=344.53;  to synchronize with plot
 
 boolean playing=false;
-
+boolean startedPlaying = false;
 
 void startOrStopPlaying() {
-    if(playing) {playing=false; out.close();} 
+    if(playing) {playing=false; startedPlaying = true; out.close();} 
     else {
       playing=true;  
       out = minim.getLineOut(Minim.MONO,1024*16); 
@@ -22,9 +22,14 @@ void playPhrase(){
    totalDuration=0;
    playFrameCounter=0;
    out.pauseNotes(); // do not play yet, first put all notes into the play buffer to help synchronization
+   out.setNoteOffset(-xStart);
    for(int i=0; i<n; i++) 
+   {
      if(S[i]!=SILENCE) 
+     {
        note(T[i],D[i],Fofs(S[i])); // converts S[i] from semitone to frequency
+     }
+   }
    out.resumeNotes(); // play now
    }
    

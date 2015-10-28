@@ -6,6 +6,7 @@ float [] D = new float[nn]; // durations
 float [] S = new float[nn]; // semitone )1/12 of octave)
 int n=0; // number of notes in song
 float songLength=10, totalDuration=0; 
+float preSongLength = 0;
 
 // to add notes to a song 
 float tm=4; // conversion ratio for time and duration used to simplify parameters to appendNote and assNOte 
@@ -78,7 +79,7 @@ void addBeat() {  // to call AFTER initiSong or compose because it uses songLeng
   if (!hasBeat)
   {
     hasBeat = true;
-    float preSongLength = songLength; // songLength will change with below code
+    preSongLength = songLength; // songLength will change with below code
     for(float i=xStart; i<preSongLength+xStart; i+=1) 
     {
       addNote(-10,i*tm,0.25*tm);
@@ -89,7 +90,7 @@ void addBeat() {  // to call AFTER initiSong or compose because it uses songLeng
 
 // to draw the music sheet  
 float x0, y0, dx, dy; // variables for positioning the music sheet
-void initSongChart() {dx=width/12; dy=(height-100)/36; x0=20; y0=24*dy;}
+void initSongChart() {dx=width/12; dy=(height-100)/36; x0=0; y0=24*dy;}
   
 void drawSong(){  // draws th emusic sheet
    noFill(); 
@@ -110,8 +111,8 @@ void drawNote(float s, float t, float d) {if(s!=SILENCE) rect(x0+t*dx+2,y0-s*dy-
 int playFrameCounter=0; // to drive the red line
 void drawTimeLine(){
   strokeWeight(1); stroke(255,0,0); 
-  float t=(-5.+playFrameCounter)/30; // -5 corrects for delay in frames before starting the song
-  line(x0+t*dx,0,x0+t*dx,dy*36);
+  float t=(-xQuantOffset-5+playFrameCounter)/30; // -5 corrects for delay in frames before starting the song
+  line(x0+t*dx+100+xQuantOffset+5,0,x0+t*dx+100+xQuantOffset+5,dy*36);
   }
   
 
