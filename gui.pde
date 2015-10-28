@@ -25,3 +25,15 @@ void mouseDragged(){
   musicCurve.setPt6(mouse);
   musicCurve.setPt7(mouse);
 }
+
+void mouseReleased()
+{
+  S1 = false;
+  S2 = false;
+  S3 = false;
+  S4 = false;
+  S5 = false;
+  S6 = false;
+  S7 = false;
+}
+

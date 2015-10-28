@@ -1,5 +1,12 @@
 float xQuantOffset = 12.5f;
 boolean hasBeat = false;
+boolean S1 = false;
+boolean S2 = false;
+boolean S3 = false;
+boolean S4 = false;
+boolean S5 = false;
+boolean S6 = false;
+boolean S7 = false;
 
 public class MusicCurve{
   
@@ -60,10 +67,11 @@ public class MusicCurve{
     //Draw the control points
     fill(red);
     pen(black, 1.0f);
-    ellipse(controlPt1.x, controlPt1.y, 10.0f, 10.0f);
-    ellipse(controlPt2.x, controlPt2.y, 10.0f, 10.0f);
-    ellipse(controlPt3.x, controlPt3.y, 10.0f, 10.0f);
-    ellipse(controlPt4.x, controlPt4.y, 10.0f, 10.0f);
+    ellipse(controlPt1.x, controlPt1.y, 12.0f, 12.0f);
+    ellipse(controlPt2.x, controlPt2.y, 12.0f, 12.0f);
+    ellipse(controlPt3.x, controlPt3.y, 12.0f, 12.0f);
+    ellipse(controlPt4.x, controlPt4.y, 12.0f, 12.0f);
+    fill(blue);
     ellipse(controlPt5.x, controlPt5.y, 10.0f, 10.0f);
     ellipse(controlPt6.x, controlPt6.y, 10.0f, 10.0f);
     ellipse(controlPt7.x, controlPt7.y, 10.0f, 10.0f);
@@ -138,53 +146,93 @@ public class MusicCurve{
   
   /* Getters and Setters */
   public void setPt1(pt P){
-    if( d(P, controlPt1) < CLICK_DISTANCE){
-      controlPt1 = P;
-      curveChanged();
+    if( d(P, controlPt1) < CLICK_DISTANCE)
+    {
+      if (!S2 && !S3 && !S4 && !S5 && !S6 && !S7)
+      {
+        S1 = true;
+        controlPt1 = P;
+        controlPt7.x = controlPt4.x + 0.5*(controlPt4.x - controlPt1.x);
+        controlPt7.y = P.y;
+        curveChanged();
+      }
     }
-    
   }
   
   public void setPt2(pt P){
-     if( d(P, controlPt2) < CLICK_DISTANCE){
-      controlPt2 = P;
-      curveChanged();
-    }
+     if( d(P, controlPt2) < CLICK_DISTANCE)
+     {
+       if (!S1 && !S3 && !S4 && !S5 && !S6 && !S7)
+       {
+         S2 = true;
+         controlPt2 = P;
+         curveChanged();
+         controlPt6.x = controlPt4.x + 0.5*(controlPt4.x - controlPt2.x);
+         controlPt6.y = controlPt4.y + 0.5*(controlPt4.y - controlPt2.y);
+       }
+     }
   }
   
   public void setPt3(pt P){
-     if( d(P, controlPt3) < CLICK_DISTANCE){
-      controlPt3 = P;
-      curveChanged();
-    }
+     if( d(P, controlPt3) < CLICK_DISTANCE)
+     {
+       if (!S1 && !S2 && !S4 && !S5 && !S6 && !S7)
+       {
+         S3 = true;
+         controlPt3 = P;
+         controlPt5.x = controlPt4.x + 0.5*(controlPt4.x - controlPt3.x);
+         controlPt5.y = controlPt4.y + 0.5*(controlPt4.y - controlPt3.y);
+         curveChanged();
+       }
+     }
   }
   
   public void setPt4(pt P){
-     if( d(P, controlPt4) < CLICK_DISTANCE){
-      controlPt4 = P;
-      curveChanged();
+    if( d(P, controlPt4) < CLICK_DISTANCE)
+    {
+      if (!S1 && !S2 && !S3 && !S5 && !S6 && !S7)
+      {
+        S4 = true;
+        controlPt4 = P;
+        curveChanged();
+      }
     }
   }
   
-    public void setPt5(pt P){
-     if( d(P, controlPt5) < CLICK_DISTANCE){
-      controlPt5 = P;
-      curveChanged();
+  public void setPt5(pt P){
+    if( d(P, controlPt5) < CLICK_DISTANCE)
+    {
+      if (!S1 && !S2 && !S3 && !S4 && !S6 && !S7)
+      {
+        S5 = true;
+        controlPt5 = P;
+        curveChanged();
+      }
     }
   }
   
   public void setPt6(pt P){
-     if( d(P, controlPt6) < CLICK_DISTANCE){
-      controlPt6 = P;
-      curveChanged();
+    if( d(P, controlPt6) < CLICK_DISTANCE)
+    {
+      if (!S1 && !S2 && !S3 && !S4 && !S5 && !S7)
+      {
+        S6 = true;
+        controlPt6 = P;
+        curveChanged();
+      }
     }
   }
   
   public void setPt7(pt P){
-     if( d(P, controlPt7) < CLICK_DISTANCE){
-      controlPt7 = P;
-      curveChanged();
-    }
+     if( d(P, controlPt7) < CLICK_DISTANCE)
+     {
+       if (!S1 && !S2 && !S3 && !S4 && !S5 && !S6)
+       {
+         S7 = true;
+         controlPt7 = P;
+         curveChanged();
+       }
+     }
   }
   
 }

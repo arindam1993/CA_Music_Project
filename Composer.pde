@@ -26,7 +26,7 @@ void setup() {
 //   addBeat();       // adds a very bad beat over that song
 
   musicCurve = new MusicCurve(P(100, 300), P(200, 100), P(300, 400), P(400, 250),
-    P(436, 179), P(600,350), P(700, 250));
+    P(450, 179), P(500,350), P(550, 250));
    } 
  
 void draw() {   
