@@ -15,8 +15,21 @@ void appendNote(float s, float d) {S[n]=s; T[n]=songLength; D[n]=d/tm; n++; song
 float SILENCE=1000;
 void appendSilence(float d) {S[n]=SILENCE; T[n]=songLength; D[n]=d/tm; n++; songLength+=d/tm; }
   
+float xStart = -1;
+
 // use this to add notes in any order
-void addNote(float s, float t, float d) {S[n]=s; T[n]=t/tm; D[n]=d/tm; n++; songLength=max(songLength,(t+d)/tm); }
+void addNote(float s, float t, float d) {
+  S[n]=s;
+  T[n]=t/tm;
+  D[n]=d/tm;
+  if (n==0)
+  {
+    xStart = (t+d)/tm - (1.0 / tm);
+    println("X: " + xStart);
+  }
+  songLength+=d/tm;
+  n++;
+}
 
 //Extends the previous note if this note is same as previous one
 void addNoteWithExtend(float s, float t, float d) {
@@ -26,6 +39,7 @@ void addNoteWithExtend(float s, float t, float d) {
   //If same note, extend previous
   if( S[n-1] == s ){
     D[n-1]+=d/tm;
+    songLength+=d/tm;
   }else{
     addNote(s,t,d); 
   }
@@ -35,7 +49,7 @@ void clearNotes(){
   T = new float[nn];
   D = new float[nn];
   S = new float[nn];
-  
+  songLength=0;
   n=0;
   totalDuration=0;
 }
@@ -62,11 +76,18 @@ void initSong() { // from Jobim's Desafinado
 
 // to add a beat to the current song
 void addBeat() {  // to call AFTER initiSong or compose because it uses songLength that is set by these
-  for(int i=0; i<songLength; i+=1) {
-    addNote(-10,i*tm,0.25*tm);
-    addNote(-12,i*tm+3,0.1*tm);
+  println(songLength);
+  if (!hasBeat)
+  {
+    hasBeat = true;
+    float preSongLength = songLength; // songLength will change with below code
+    for(float i=xStart; i<preSongLength+xStart; i+=1) 
+    {
+      addNote(-10,i*tm,0.25*tm);
+      addNote(-12,i*tm+3,0.1*tm);
     }
   }
+}
 
 // to draw the music sheet  
 float x0, y0, dx, dy; // variables for positioning the music sheet

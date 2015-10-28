@@ -17,7 +17,7 @@
 MusicCurve musicCurve;
 
 void setup() {             
-   size(1200, 1200);         
+   size(800, 800);         
    smooth();  strokeJoin(ROUND); strokeCap(ROUND); 
    frameRate(30);
    minim = new Minim(this); // Declares minim which we use for sounds

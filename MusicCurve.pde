@@ -1,3 +1,6 @@
+float xQuantOffset = 12.5f;
+boolean hasBeat = false;
+
 public class MusicCurve{
   
   //Four control points for Cubic Neville 
@@ -32,7 +35,6 @@ public class MusicCurve{
   //Call this to recalculate interpolated points
   private void calcInterps(){
     float step = 1/float(INTERP_COUNT);
-    
     
     int ptI = 0;
     for (float s = 0 ; s < 1; s+= step){
@@ -79,19 +81,15 @@ public class MusicCurve{
   }
   
   // Quantizes musicCurve by sampling along X  
-  float xQuantOffset = 12.5f;
   void computeNotes(){
-    
     float time = 0;
     for(float i = 0; i<20; i+=1./tm){
       float x = x0+i*dx + xQuantOffset;
       float y = this.sampleAtX(x);
-      
       if( y != -1.0f ){
         addNoteWithExtend(getSemitone(y), time, 1);
       }
-      time++;
-      
+      time+=1;
     }
   }
   
@@ -111,6 +109,7 @@ public class MusicCurve{
   }
   
   public void curveChanged(){
+    hasBeat = false;
     calcInterps();
     
     clearNotes();
